@@ -342,7 +342,7 @@
 <p><strong>查看sql手册</strong></p>
 <p>语法：EXTRACTVALUE (XML_document, XPath_string);<br>第一个参数：XML_document是String格式，为XML文档对象的名称，文中为Doc<br>第二个参数：XPath_string (Xpath格式的字符串) ，如果不了解Xpath语法，可以在网上查找教程。</p>
 </blockquote>
-<p><strong>用法:</strong><br><code>extractvalue(1,concat(0x7e,**user()**,0x7e))</code><br>只要我们不满足XPath_string(xpath格式)就可以了，但是由于这个方法只能爆出32位，所以可以结合mid来使用。</p>
+<p><strong>用法:</strong><br><code>extractvalue(1,concat(0x7e,user(),0x7e))</code><br>只要我们不满足XPath_string(xpath格式)就可以了，但是由于这个方法只能爆出32位，所以可以结合mid来使用。</p>
 <h1 id="0x02-Sqli-labs"><a href="#0x02-Sqli-labs" class="headerlink" title="0x02 Sqli-labs"></a>0x02 Sqli-labs</h1><p>以下为Basic Challenges的less1-less4四道SQL Error Based 的题目。</p>
 <h2 id="Less-1-Error-Based-String"><a href="#Less-1-Error-Based-String" class="headerlink" title="Less-1 Error Based- String"></a>Less-1 Error Based- String</h2><p>用了看雪的在线sqli-labs平台。</p>
 <p>题目提示：Please input the ID as parameter with numeric value</p>
