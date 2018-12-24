@@ -79,19 +79,20 @@
 
 
 
-<meta name="description" content="OWASP TOP 10(2017)">
+<meta name="description" content="title: SQL注入之Blinddate: 2018-12-24 23:43:47tags:categories: sqli-labs 0x00 原理盲注不会根据sql注入的攻击语句返回相应的错误信息。参考：盲注（看雪）Sql盲注之布尔盲注布尔盲注sql盲注学习笔记 盲注分为两类：  布尔盲注。根据注入信息返回Ture或False。 时间盲注。基于布尔盲注可以在页面上看到0 or 1的回显，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OWASP TOP 10(2017)整理">
-<meta property="og:url" content="http://yoursite.com/2018/11/10/OWASPtop10md/index.html">
+<meta property="og:title" content="Angie&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/2018/12/24/SQL注入之Blind/index.html">
 <meta property="og:site_name" content="Angie&#39;s blog">
-<meta property="og:description" content="OWASP TOP 10(2017)">
+<meta property="og:description" content="title: SQL注入之Blinddate: 2018-12-24 23:43:47tags:categories: sqli-labs 0x00 原理盲注不会根据sql注入的攻击语句返回相应的错误信息。参考：盲注（看雪）Sql盲注之布尔盲注布尔盲注sql盲注学习笔记 盲注分为两类：  布尔盲注。根据注入信息返回Ture或False。 时间盲注。基于布尔盲注可以在页面上看到0 or 1的回显，">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://i.loli.net/2018/12/10/5c0e7f3fc9c72.png">
-<meta property="og:updated_time" content="2018-12-15T02:10:55.645Z">
+<meta property="og:image" content="https://i.loli.net/2018/12/24/5c20fcbec19e4.png">
+<meta property="og:image" content="https://i.loli.net/2018/12/24/5c20fcbecbf32.png">
+<meta property="og:updated_time" content="2018-12-24T15:43:31.709Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OWASP TOP 10(2017)整理">
-<meta name="twitter:description" content="OWASP TOP 10(2017)">
-<meta name="twitter:image" content="https://i.loli.net/2018/12/10/5c0e7f3fc9c72.png">
+<meta name="twitter:title" content="Angie&#39;s blog">
+<meta name="twitter:description" content="title: SQL注入之Blinddate: 2018-12-24 23:43:47tags:categories: sqli-labs 0x00 原理盲注不会根据sql注入的攻击语句返回相应的错误信息。参考：盲注（看雪）Sql盲注之布尔盲注布尔盲注sql盲注学习笔记 盲注分为两类：  布尔盲注。根据注入信息返回Ture或False。 时间盲注。基于布尔盲注可以在页面上看到0 or 1的回显，">
+<meta name="twitter:image" content="https://i.loli.net/2018/12/24/5c20fcbec19e4.png">
 
 
 
@@ -121,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/10/OWASPtop10md/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/12/24/SQL注入之Blind/"/>
 
 
 
 
 
-  <title>OWASP TOP 10(2017)整理 | Angie's blog</title>
+  <title> | Angie's blog</title>
   
 
 
@@ -234,7 +235,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/10/OWASPtop10md/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/24/SQL注入之Blind/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Angie Q">
@@ -251,7 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">OWASP TOP 10(2017)整理</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -263,8 +264,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-10T23:15:47+08:00">
-                2018-11-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-24T23:43:31+08:00">
+                2018-12-24
               </time>
             
 
@@ -273,28 +274,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -323,7 +302,18 @@
       
 
       
-        <h2 id="OWASP-TOP-10-2017"><a href="#OWASP-TOP-10-2017" class="headerlink" title="OWASP TOP 10(2017)"></a>OWASP TOP 10(2017)</h2><p><img src="https://i.loli.net/2018/12/10/5c0e7f3fc9c72.png" alt="OWASP TOP 10（整理）-1.png"></p>
+        <hr>
+<p>title: SQL注入之Blind<br>date: 2018-12-24 23:43:47<br>tags:<br>categories: sqli-labs</p>
+<h1 id="0x00-原理"><a href="#0x00-原理" class="headerlink" title="0x00 原理"></a>0x00 原理</h1><p>盲注不会根据sql注入的攻击语句返回相应的错误信息。<br>参考：<br><a href="https://www.kanxue.com/book-6-111.htm" target="_blank" rel="noopener">盲注（看雪）</a><br><a href="https://bbs.ichunqiu.com/thread-31587-1-1.html" target="_blank" rel="noopener">Sql盲注之布尔盲注</a><br><a href="https://tea9.coding.me/2018/06/21/2018-06-21-web_security_learn01_3_1/" target="_blank" rel="noopener">布尔盲注</a><br><a href="https://www.jianshu.com/p/65f05e7cc957" target="_blank" rel="noopener">sql盲注学习笔记</a></p>
+<p><strong>盲注分为两类：</strong></p>
+<ol>
+<li>布尔盲注。根据注入信息返回Ture或False。</li>
+<li>时间盲注。基于布尔盲注可以在页面上看到0 or 1的回显，但是基于时间的盲注是看不到的。可以通过“时间”条件进行特定的输入，判断后台执行sql语句的时间来判断是否存在盲注。</li>
+</ol>
+<p><strong>需要用到的函数：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">length() 返回字符串的长度</span><br><span class="line">substr() 截取字符串</span><br><span class="line">ascii() 返回字符的ascii码</span><br><span class="line">sleep(n) 将程序挂起一段时间为n秒</span><br><span class="line">if(expr1,expr2,expr3) 判断语句，如果第一个语句正确就执行第二个语句，如果错误执行第三个语句</span><br></pre></td></tr></table></figure></p>
+<h1 id="0x01-Sqli-labs"><a href="#0x01-Sqli-labs" class="headerlink" title="0x01 Sqli-labs"></a>0x01 Sqli-labs</h1><h2 id="Less-8-Blind-Boolian-Single-Quotes-String"><a href="#Less-8-Blind-Boolian-Single-Quotes-String" class="headerlink" title="Less-8 Blind-Boolian-Single Quotes- String"></a>Less-8 Blind-Boolian-Single Quotes- String</h2><p>依据题目信息知道是布尔盲注。<br><strong>判断数据库名长度：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://43.247.91.228:84/Less-8/?id=1&apos; and length(database())=8 --+</span><br></pre></td></tr></table></figure></p>
+<p><strong>利用burp爆库名：</strong><br>1、抓包，利用 substr()  ascii(substr((select database()),1,1))=98 爆数据库名称，根据上面判断出库名长度为8，则第一个payload设置为1-8；第二个payload设置为ascii码的值。<br><img src="https://i.loli.net/2018/12/24/5c20fcbec19e4.png" alt="请求数据包"><br>2、结果：<br><img src="https://i.loli.net/2018/12/24/5c20fcbecbf32.png" alt="攻击结果"></p>
+<p>因此库名为security</p>
 
       
     </div>
@@ -348,8 +338,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/18/owasp安全测试指南/" rel="next" title="《OWASP安全测试指南》脑图">
-                <i class="fa fa-chevron-left"></i> 《OWASP安全测试指南》脑图
+              <a href="/2018/12/17/SQL注入之Double Query/" rel="next" title="SQL注入之Double Query">
+                <i class="fa fa-chevron-left"></i> SQL注入之Double Query
               </a>
             
           </div>
@@ -357,10 +347,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/09/安全技术文章翻译合集 /" rel="prev" title="安全技术文章翻译合集">
-                安全技术文章翻译合集 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -492,7 +478,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#OWASP-TOP-10-2017"><span class="nav-number">1.</span> <span class="nav-text">OWASP TOP 10(2017)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-原理"><span class="nav-number">1.</span> <span class="nav-text">0x00 原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-Sqli-labs"><span class="nav-number">2.</span> <span class="nav-text">0x01 Sqli-labs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Less-8-Blind-Boolian-Single-Quotes-String"><span class="nav-number">2.1.</span> <span class="nav-text">Less-8 Blind-Boolian-Single Quotes- String</span></a></li></ol></li></ol></div>
             
 
           </div>

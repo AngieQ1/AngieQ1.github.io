@@ -229,6 +229,137 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/24/SQL注入之Blind/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Angie Q">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Angie's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/24/SQL注入之Blind/" itemprop="url">Untitled</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-24T23:43:31+08:00">
+                2018-12-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<p>title: SQL注入之Blind<br>date: 2018-12-24 23:43:47<br>tags:<br>categories: sqli-labs</p>
+<h1 id="0x00-原理"><a href="#0x00-原理" class="headerlink" title="0x00 原理"></a>0x00 原理</h1><p>盲注不会根据sql注入的攻击语句返回相应的错误信息。<br>参考：<br><a href="https://www.kanxue.com/book-6-111.htm" target="_blank" rel="noopener">盲注（看雪）</a><br><a href="https://bbs.ichunqiu.com/thread-31587-1-1.html" target="_blank" rel="noopener">Sql盲注之布尔盲注</a><br><a href="https://tea9.coding.me/2018/06/21/2018-06-21-web_security_learn01_3_1/" target="_blank" rel="noopener">布尔盲注</a><br><a href="https://www.jianshu.com/p/65f05e7cc957" target="_blank" rel="noopener">sql盲注学习笔记</a></p>
+<p><strong>盲注分为两类：</strong></p>
+<ol>
+<li>布尔盲注。根据注入信息返回Ture或False。</li>
+<li>时间盲注。基于布尔盲注可以在页面上看到0 or 1的回显，但是基于时间的盲注是看不到的。可以通过“时间”条件进行特定的输入，判断后台执行sql语句的时间来判断是否存在盲注。</li>
+</ol>
+<p><strong>需要用到的函数：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">length() 返回字符串的长度</span><br><span class="line">substr() 截取字符串</span><br><span class="line">ascii() 返回字符的ascii码</span><br><span class="line">sleep(n) 将程序挂起一段时间为n秒</span><br><span class="line">if(expr1,expr2,expr3) 判断语句，如果第一个语句正确就执行第二个语句，如果错误执行第三个语句</span><br></pre></td></tr></table></figure></p>
+<h1 id="0x01-Sqli-labs"><a href="#0x01-Sqli-labs" class="headerlink" title="0x01 Sqli-labs"></a>0x01 Sqli-labs</h1><h2 id="Less-8-Blind-Boolian-Single-Quotes-String"><a href="#Less-8-Blind-Boolian-Single-Quotes-String" class="headerlink" title="Less-8 Blind-Boolian-Single Quotes- String"></a>Less-8 Blind-Boolian-Single Quotes- String</h2><p>依据题目信息知道是布尔盲注。<br><strong>判断数据库名长度：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://43.247.91.228:84/Less-8/?id=1&apos; and length(database())=8 --+</span><br></pre></td></tr></table></figure></p>
+<p><strong>利用burp爆库名：</strong><br>1、抓包，利用 substr()  ascii(substr((select database()),1,1))=98 爆数据库名称，根据上面判断出库名长度为8，则第一个payload设置为1-8；第二个payload设置为ascii码的值。<br><img src="https://i.loli.net/2018/12/24/5c20fcbec19e4.png" alt="请求数据包"><br>2、结果：<br><img src="https://i.loli.net/2018/12/24/5c20fcbecbf32.png" alt="攻击结果"></p>
+<p>因此库名为security</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/17/SQL注入之Double Query/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1045,7 +1176,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
