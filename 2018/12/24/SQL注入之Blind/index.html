@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="title: SQL注入之Blinddate: 2018-12-24 23:43:47tags:categories: sqli-labs 0x00 原理盲注不会根据sql注入的攻击语句返回相应的错误信息。参考：盲注（看雪）Sql盲注之布尔盲注布尔盲注sql盲注学习笔记 盲注分为两类：  布尔盲注。根据注入信息返回Ture或False。 时间盲注。基于布尔盲注可以在页面上看到0 or 1的回显，">
+<meta name="description" content="0x00 原理盲注不会根据sql注入的攻击语句返回相应的错误信息。参考：盲注（看雪）Sql盲注之布尔盲注布尔盲注sql盲注学习笔记 盲注分为两类：  布尔盲注。根据注入信息返回Ture或False。 时间盲注。基于布尔盲注可以在页面上看到0 or 1的回显，但是基于时间的盲注是看不到的。可以通过“时间”条件进行特定的输入，判断后台执行sql语句的时间来判断是否存在盲注。  需要用到的函数：1234">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Angie&#39;s blog">
+<meta property="og:title" content="SQL注入之Blind">
 <meta property="og:url" content="http://yoursite.com/2018/12/24/SQL注入之Blind/index.html">
 <meta property="og:site_name" content="Angie&#39;s blog">
-<meta property="og:description" content="title: SQL注入之Blinddate: 2018-12-24 23:43:47tags:categories: sqli-labs 0x00 原理盲注不会根据sql注入的攻击语句返回相应的错误信息。参考：盲注（看雪）Sql盲注之布尔盲注布尔盲注sql盲注学习笔记 盲注分为两类：  布尔盲注。根据注入信息返回Ture或False。 时间盲注。基于布尔盲注可以在页面上看到0 or 1的回显，">
+<meta property="og:description" content="0x00 原理盲注不会根据sql注入的攻击语句返回相应的错误信息。参考：盲注（看雪）Sql盲注之布尔盲注布尔盲注sql盲注学习笔记 盲注分为两类：  布尔盲注。根据注入信息返回Ture或False。 时间盲注。基于布尔盲注可以在页面上看到0 or 1的回显，但是基于时间的盲注是看不到的。可以通过“时间”条件进行特定的输入，判断后台执行sql语句的时间来判断是否存在盲注。  需要用到的函数：1234">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://i.loli.net/2018/12/24/5c20fcbec19e4.png">
 <meta property="og:image" content="https://i.loli.net/2018/12/24/5c20fcbecbf32.png">
-<meta property="og:updated_time" content="2018-12-24T15:43:31.709Z">
+<meta property="og:updated_time" content="2018-12-24T15:45:59.902Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Angie&#39;s blog">
-<meta name="twitter:description" content="title: SQL注入之Blinddate: 2018-12-24 23:43:47tags:categories: sqli-labs 0x00 原理盲注不会根据sql注入的攻击语句返回相应的错误信息。参考：盲注（看雪）Sql盲注之布尔盲注布尔盲注sql盲注学习笔记 盲注分为两类：  布尔盲注。根据注入信息返回Ture或False。 时间盲注。基于布尔盲注可以在页面上看到0 or 1的回显，">
+<meta name="twitter:title" content="SQL注入之Blind">
+<meta name="twitter:description" content="0x00 原理盲注不会根据sql注入的攻击语句返回相应的错误信息。参考：盲注（看雪）Sql盲注之布尔盲注布尔盲注sql盲注学习笔记 盲注分为两类：  布尔盲注。根据注入信息返回Ture或False。 时间盲注。基于布尔盲注可以在页面上看到0 or 1的回显，但是基于时间的盲注是看不到的。可以通过“时间”条件进行特定的输入，判断后台执行sql语句的时间来判断是否存在盲注。  需要用到的函数：1234">
 <meta name="twitter:image" content="https://i.loli.net/2018/12/24/5c20fcbec19e4.png">
 
 
@@ -128,7 +128,7 @@
 
 
 
-  <title> | Angie's blog</title>
+  <title>SQL注入之Blind | Angie's blog</title>
   
 
 
@@ -252,7 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">SQL注入之Blind</h1>
         
 
         <div class="post-meta">
@@ -264,7 +264,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-24T23:43:31+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-24T23:43:47+08:00">
                 2018-12-24
               </time>
             
@@ -274,6 +274,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/sqli-labs/" itemprop="url" rel="index">
+                    <span itemprop="name">sqli-labs</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -302,9 +324,7 @@
       
 
       
-        <hr>
-<p>title: SQL注入之Blind<br>date: 2018-12-24 23:43:47<br>tags:<br>categories: sqli-labs</p>
-<h1 id="0x00-原理"><a href="#0x00-原理" class="headerlink" title="0x00 原理"></a>0x00 原理</h1><p>盲注不会根据sql注入的攻击语句返回相应的错误信息。<br>参考：<br><a href="https://www.kanxue.com/book-6-111.htm" target="_blank" rel="noopener">盲注（看雪）</a><br><a href="https://bbs.ichunqiu.com/thread-31587-1-1.html" target="_blank" rel="noopener">Sql盲注之布尔盲注</a><br><a href="https://tea9.coding.me/2018/06/21/2018-06-21-web_security_learn01_3_1/" target="_blank" rel="noopener">布尔盲注</a><br><a href="https://www.jianshu.com/p/65f05e7cc957" target="_blank" rel="noopener">sql盲注学习笔记</a></p>
+        <h1 id="0x00-原理"><a href="#0x00-原理" class="headerlink" title="0x00 原理"></a>0x00 原理</h1><p>盲注不会根据sql注入的攻击语句返回相应的错误信息。<br>参考：<br><a href="https://www.kanxue.com/book-6-111.htm" target="_blank" rel="noopener">盲注（看雪）</a><br><a href="https://bbs.ichunqiu.com/thread-31587-1-1.html" target="_blank" rel="noopener">Sql盲注之布尔盲注</a><br><a href="https://tea9.coding.me/2018/06/21/2018-06-21-web_security_learn01_3_1/" target="_blank" rel="noopener">布尔盲注</a><br><a href="https://www.jianshu.com/p/65f05e7cc957" target="_blank" rel="noopener">sql盲注学习笔记</a></p>
 <p><strong>盲注分为两类：</strong></p>
 <ol>
 <li>布尔盲注。根据注入信息返回Ture或False。</li>
