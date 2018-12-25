@@ -229,6 +229,168 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/25/Gophish部署与测试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Angie Q">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Angie's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/25/Gophish部署与测试/" itemprop="url">Gophish钓鱼工具部署与测试</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-25T23:15:47+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/企业安全/" itemprop="url" rel="index">
+                    <span itemprop="name">企业安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h1><p>这次很感谢大佬把部署流程重新放回了项目里，全程参考了他的部署、使用：<br><a href="https://bloodzer0.github.io/ossa/infrastructure-security/network-security/office-network-security/gophish/" target="_blank" rel="noopener">Gophish</a></p>
+<h1 id="0x01-过程"><a href="#0x01-过程" class="headerlink" title="0x01 过程"></a>0x01 过程</h1><h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><p>天翼云服务器<br>CentOS Linux release 7.5.1804 (Core)</p>
+<h3 id="搭建过程"><a href="#搭建过程" class="headerlink" title="搭建过程"></a>搭建过程</h3><p><strong>1、下载</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/gophish/gophish/releases/download/0.7.1/gophish-v0.7.1-linux-64bit.zip</span><br></pre></td></tr></table></figure></p>
+<p><strong>2、解压并启动</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /app/gophish</span><br><span class="line">unzip gophish-v0.7.1-linux-64bit.zip -d /app/gophish/ &amp;&amp; cd /app/gophish/</span><br></pre></td></tr></table></figure></p>
+<p><strong>3、修改配置文件，修改监听地址</strong><br><img src="Gophish部署与测试.resources/A00B149A-B304-4093-9500-17CC6CC90629.png" alt="9f673b6b8566f33c6795a8c7eec972bc"></p>
+<p>默认phish_server的监听端口是80，但是由于云服务器的安全组策略，这里修改了9999。<br><strong>4、启动gophish</strong><br>./gophish</p>
+<p>访问<a href="http://ip:3333即可。" target="_blank" rel="noopener">http://ip:3333即可。</a><br>用户名:admin<br>密码:gophish<br><img src="Gophish部署与测试.resources/3C56E74C-FFFB-43A0-9669-29A50A8213A6.png" alt="d6212035bc83807d3c043c38f7b38112"></p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p><strong>1、配置User&amp;Groups</strong><br><img src="Gophish部署与测试.resources/76462A9C-077C-4572-954C-0C97FD6A9A36.png" alt="c8c3bdddd8633659aeaf2cea764eaa12"><br>可以导入表格添加邮箱。<br><strong>2、配置Email Templates</strong><br>先自己写好一封贴合业务内容的钓鱼邮件发送给自己，然后查看邮件源码，将源码复制。<br><img src="Gophish部署与测试.resources/524EB1B4-5342-4061-8A20-38360F1630A3.png" alt="63f2dcafb0217337cab9899774096bfd"></p>
+<p>将邮件内容源码粘贴至import Email中，正确操作的话，会在下方生成预览：<br><img src="Gophish部署与测试.resources/72F42408-252D-4A38-934A-DFD6B3A3E6C5.png" alt="3ffe6b28e66ba5b674384054029111f5"></p>
+<p>在粘贴邮件源码的时候注意勾选下图所示复选框，会自动将邮件内容的链接替换成为后面设置的钓鱼链接。（不过这个是默认勾选的，只是再注意一下就好了）<br><img src="Gophish部署与测试.resources/4A089B07-F26D-4666-AB8E-F296C3796325.png" alt="99f1bc3c45cf071900b1a3c6feb6410f"></p>
+<p><strong>3、配置Landing Pages</strong><br>打开Landing Pages，选择New Page。在import site里添加需要模仿的url就好了，如你要模仿一个百度的，即输入<a href="https://www.baidu.com" target="_blank" rel="noopener">https://www.baidu.com</a><br><img src="Gophish部署与测试.resources/8DBC408F-0A78-4373-947D-01C180451218.png" alt="ae787a78a58f9b2f7fed90e260d2958b"></p>
+<p><img src="Gophish部署与测试.resources/4824E9BE-580B-4709-A58F-DB57591D2D2B.png" alt="94585f058b5e4a5736d1db9647722e91"><br>这里需要注意的是需要勾选 Capture Submitted Data才能够捕获到是否提交了数据。<br>下面是Capture Passwords。这里有一个提示大概意思就是现在还没对数据进行加密处理，所以如果勾选了这个，所输入的密码信息会明文存储在数据库里，要谨慎勾选这一个。<br><img src="Gophish部署与测试.resources/8ED60C32-2E3B-42B9-A095-5E47E49844DA.png" alt="b02d6274fc31a95989b0540bdc1c0c77"></p>
+<p>这里大佬是使用了一个<br><a href="http://xnore.com/admin/login.php登录站点用于测试。" target="_blank" rel="noopener">http://xnore.com/admin/login.php登录站点用于测试。</a></p>
+<p>而我为了贴合业务场景需求导入了我司使用的邮件官网的链接。但是这里遇到一个问题就是，邮件官网的一些限制问题，构造的钓鱼链接只能检测到打开链接，不能检测到提交数据与否。看了一下应该是因为提交了数据之后没有跳转而导致无法判断是否提交了数据。<br><strong>4、配置Sending Profiles</strong><br>这里比较简单了，就是配置一下邮件服务器、发件人邮箱等。配置好了之后会有个测试邮件发送。<br><img src="Gophish部署与测试.resources/844C4BF1-3EAF-40FE-979E-2314C000D756.png" alt="2ad4569d47277e1421615a942081b0f2"><br>成功的话，会受到邮件，测试邮件内容：<br><img src="Gophish部署与测试.resources/12DB2134-0DCD-4906-A29D-5CC41F4B1C46.png" alt="074ee5e4886d020be3be551aeb2cd9d2"></p>
+<p><strong>5、配置Campaigns</strong><br><img src="Gophish部署与测试.resources/89106469-11F4-470A-A895-039DBB2DBCB4.png" alt="75aa57f8a57a7c6123640f5893765e20"><br>基本就是选择之前设置的信息了，这里监听URL就是写之前在config.json里设置的phish_server的地址，记得加上设置的端口号，否则会造成无法访问钓鱼链接。如<a href="http://ip:9999" target="_blank" rel="noopener">http://ip:9999</a><br><img src="Gophish部署与测试.resources/7EDB4006-56C1-445F-93A1-92A1ED4F1051.png" alt="ae8ce6c4a28bad5cfbc2830d3dc858d5"></p>
+<p>发送邮件<br><img src="Gophish部署与测试.resources/969F4532-46D5-4661-A5BC-12BE13D4BEB9.png" alt="3f0eafce35d52424047d3f5a95f77f57"></p>
+<p>点开链接的话，就跳转到之前你所设置的模板链接处。<br>这里拿大佬提供的简单登录站点做测试。<br><img src="Gophish部署与测试.resources/56D45443-BA0D-4783-BDD3-0EA4B332A117.png" alt="f4d4b17bc8516026ad87de3f89e5db3a"><br>输入信息提交：<br><img src="Gophish部署与测试.resources/37BC2302-2A7E-4B6D-84C5-728A246D62DC.png" alt="a94696fb9fd56dbace9c848e659f8fa3"><br>即可在监控面板查看到：<br><img src="Gophish部署与测试.resources/F4EF6537-8167-4039-A7C2-BB500F3D4EE8.png" alt="c8277d207bedc2429584f9a5c91d9f37"><br>点开具体某位员工的数据，可以查看到更具体的信息，如果勾选了Capture Passwords，则可以看到明文密码：<br><img src="Gophish部署与测试.resources/97919E99-1337-41FF-A618-8C9DF45313B6.png" alt="d45fbc643013ee0558613b10d8beb42e"></p>
+<p>导出结果邮件，可以看到状态（是否点开邮件、点开链接、提交数据），ip地址、经纬度、员工邮箱等信息。<br><img src="Gophish部署与测试.resources/3BFFB665-A729-403D-98FE-A2745AF763F4.png" alt="508bf639454165107055fe1346575199"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这就是一次钓鱼邮件工具的部署与测试过程，这个工具还是比较便捷的。</p>
+<p>不过有一个不足的地方就是，假如发送邮件的对象同处于一个邮件组里，假设发送给<a href="mailto:xxx@xxx.com" target="_blank" rel="noopener">xxx@xxx.com</a>即可发送给3个人这封邮件，结果就是这几个人只要有一个人对钓鱼邮件进行了操作，就只能捕捉到这一个结果。无法得知是哪个人进行了操作，也无法辨认三人之中有几人进行了操作。</p>
+<p>所以只能够分别发送邮件。无法同时发给多人。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/24/SQL注入之Blind/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1196,7 +1358,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1207,7 +1369,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">categories</span>
                 
               </div>
@@ -1218,7 +1380,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
