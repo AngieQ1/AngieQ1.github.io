@@ -187,36 +187,6 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -351,14 +321,10 @@
 
       
         
-          
-          0x00 前言这次很感谢大佬把部署流程重新放回了项目里，全程参考了他的部署、使用：Gophish
-0x01 过程环境天翼云服务器CentOS Linux release 7.5.1804 (Core)
-搭建过程1、下载1wget https://github.com/gophish/gophish/
-          ...
+          本篇介绍了搭建一款钓鱼邮件安全意识测试工具Gophish的详细过程以及使用感受。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/25/Gophish部署与测试/#more" rel="contents">
+            <a class="btn" href="/2018/12/25/Gophish部署与测试/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -501,16 +467,10 @@
 
       
         
-          
-          0x00 原理盲注不会根据sql注入的攻击语句返回相应的错误信息。参考：盲注（看雪）Sql盲注之布尔盲注布尔盲注sql盲注学习笔记
-盲注分为两类：
-
-布尔盲注。根据注入信息返回Ture或False。
-时间盲注。基于布尔盲注可以在页面上看到0 or 1的回显，但是基于时间的盲注是看不到的。可以通过“时
-          ...
+          sqli-labs less8。本篇介绍了盲注的原理以及less8的实践。less8这一题利用了burpsuite爆破出库名，以及自己写了个python poc爆出库名。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/24/SQL注入之Blind/#more" rel="contents">
+            <a class="btn" href="/2018/12/24/SQL注入之Blind/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -653,15 +613,10 @@
 
       
         
-          
-          0x00 原理Double Query原理分析参考：Sql注入：双查询科普：双查询注入
-当order by判断完字段数，但是union select 1,2,3,…不在页面显示返回位时。可以尝试双查询注入。
-双查询注入就是嵌套子查询，简单说就是select(select)的形式。
-数据库查询要么返回
-          ...
+          Sqli-labs学习记录系列之Less5-6。介绍了双查询注入的原理以及在sqli-labs题目上的应用。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/17/SQL注入之Double Query/#more" rel="contents">
+            <a class="btn" href="/2018/12/17/SQL注入之Double Query/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -804,14 +759,10 @@
 
       
         
-          
-          0x00 原理Error Based 原理分析记录学习，dalao讲解：Mysql报错注入原理分析（说的非常详细！图文并茂！）SQL注入详解SQL注入的一些技巧原理
-基于错误回显的sql注入就是通过sql语句的矛盾性来使数据被回显到页面上。
-所用到的函数count() 统计元祖个数（相当于求和）co
-          ...
+          sqli-labs Less1-4。介绍了报错注入原理以及常用函数，以及在less1-4的实践使用。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/15/SQL注入之Error Based/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/SQL注入之Error Based/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1104,13 +1055,10 @@
 
       
         
-          
-          OWASP TOP 10(2017)
-
-          
+          个人喜欢将笔记输出成脑图，清晰明了。本篇为owasp top 10 2017 的脑图。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/10/OWASPtop10md/#more" rel="contents">
+            <a class="btn" href="/2018/11/10/OWASPtop10md/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1253,22 +1201,10 @@
 
       
         
-          
-          《OWASP安全测试指南》梗概根据《OWASP安全测试指南》里各个章节讲述的安全测试方法，每章节汇总成了脑图。
-信息收集和测试
-配置和部署管理安全测试
-身份管理测试
-认证测试
-授权测试
-SESSION管理测试
-输入漏洞验证测试
-报错页面漏洞测试
-弱加密漏洞测试
-业务逻辑漏洞测试业务漏洞测试这部分涵盖
-          ...
+          基于OWASP guide v4.0。很厚的一本书，总结每章的精华部分汇总成一副副的脑图。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/09/18/owasp安全测试指南/#more" rel="contents">
+            <a class="btn" href="/2018/09/18/owasp安全测试指南/">
               阅读全文 &raquo;
             </a>
           </div>

@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="0x00 原理Double Query原理分析参考：Sql注入：双查询科普：双查询注入 当order by判断完字段数，但是union select 1,2,3,…不在页面显示返回位时。可以尝试双查询注入。 双查询注入就是嵌套子查询，简单说就是select(select)的形式。 数据库查询要么返回正确的查询结果，要么返回报错信息。双注入查询其实是一种报错查询，将我们需要的信息当作数据库错误返回。">
+<meta name="description" content="Sqli-labs学习记录系列之Less5-6。介绍了双查询注入的原理以及在sqli-labs题目上的应用。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL注入之Double Query">
 <meta property="og:url" content="http://yoursite.com/2018/12/17/SQL注入之Double Query/index.html">
 <meta property="og:site_name" content="Angie&#39;s blog">
-<meta property="og:description" content="0x00 原理Double Query原理分析参考：Sql注入：双查询科普：双查询注入 当order by判断完字段数，但是union select 1,2,3,…不在页面显示返回位时。可以尝试双查询注入。 双查询注入就是嵌套子查询，简单说就是select(select)的形式。 数据库查询要么返回正确的查询结果，要么返回报错信息。双注入查询其实是一种报错查询，将我们需要的信息当作数据库错误返回。">
+<meta property="og:description" content="Sqli-labs学习记录系列之Less5-6。介绍了双查询注入的原理以及在sqli-labs题目上的应用。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-23T15:14:57.609Z">
+<meta property="og:updated_time" content="2019-01-05T05:25:37.677Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入之Double Query">
-<meta name="twitter:description" content="0x00 原理Double Query原理分析参考：Sql注入：双查询科普：双查询注入 当order by判断完字段数，但是union select 1,2,3,…不在页面显示返回位时。可以尝试双查询注入。 双查询注入就是嵌套子查询，简单说就是select(select)的形式。 数据库查询要么返回正确的查询结果，要么返回报错信息。双注入查询其实是一种报错查询，将我们需要的信息当作数据库错误返回。">
+<meta name="twitter:description" content="Sqli-labs学习记录系列之Less5-6。介绍了双查询注入的原理以及在sqli-labs题目上的应用。">
 
 
 
@@ -186,36 +186,6 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
           </a>
         </li>
       
@@ -336,6 +306,10 @@
 
           
 
+          
+              <div class="post-description">
+                  Sqli-labs学习记录系列之Less5-6。介绍了双查询注入的原理以及在sqli-labs题目上的应用。
+              </div>
           
 
         </div>
