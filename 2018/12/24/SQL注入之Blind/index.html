@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="sqli-labs less8。本篇介绍了盲注的原理以及less8的实践。less8这一题利用了burpsuite爆破出库名，以及自己写了个python poc爆出库名。">
+<meta name="description" content="sqli-labs less8。本篇介绍了盲注的原理以及less8-9的实践。less8-9利用了burpsuite，以及自己写了个python poc爆出库名。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL注入之Blind">
 <meta property="og:url" content="http://yoursite.com/2018/12/24/SQL注入之Blind/index.html">
 <meta property="og:site_name" content="Angie&#39;s blog">
-<meta property="og:description" content="sqli-labs less8。本篇介绍了盲注的原理以及less8的实践。less8这一题利用了burpsuite爆破出库名，以及自己写了个python poc爆出库名。">
+<meta property="og:description" content="sqli-labs less8。本篇介绍了盲注的原理以及less8-9的实践。less8-9利用了burpsuite，以及自己写了个python poc爆出库名。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2018/12/24/5c20fcbec19e4.png">
 <meta property="og:image" content="https://i.loli.net/2018/12/24/5c20fcbecbf32.png">
@@ -92,10 +92,10 @@
 <meta property="og:image" content="https://i.loli.net/2019/01/06/5c32123b1421d.png">
 <meta property="og:image" content="https://i.loli.net/2019/01/06/5c32123b16507.png">
 <meta property="og:image" content="https://i.loli.net/2019/01/06/5c3211f933a68.png">
-<meta property="og:updated_time" content="2019-01-06T14:48:49.348Z">
+<meta property="og:updated_time" content="2019-01-06T14:58:30.862Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入之Blind">
-<meta name="twitter:description" content="sqli-labs less8。本篇介绍了盲注的原理以及less8的实践。less8这一题利用了burpsuite爆破出库名，以及自己写了个python poc爆出库名。">
+<meta name="twitter:description" content="sqli-labs less8。本篇介绍了盲注的原理以及less8-9的实践。less8-9利用了burpsuite，以及自己写了个python poc爆出库名。">
 <meta name="twitter:image" content="https://i.loli.net/2018/12/24/5c20fcbec19e4.png">
 
 
@@ -315,7 +315,7 @@
 
           
               <div class="post-description">
-                  sqli-labs less8。本篇介绍了盲注的原理以及less8的实践。less8这一题利用了burpsuite爆破出库名，以及自己写了个python poc爆出库名。
+                  sqli-labs less8。本篇介绍了盲注的原理以及less8-9的实践。less8-9利用了burpsuite，以及自己写了个python poc爆出库名。
               </div>
           
 
@@ -339,6 +339,8 @@
 <li>时间盲注。基于布尔盲注可以在页面上看到0 or 1的回显，但是基于时间的盲注是看不到的。可以通过“时间”条件进行特定的输入，判断后台执行sql语句的时间来判断是否存在盲注。</li>
 </ol>
 <p><strong>需要用到的函数：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">length() 返回字符串的长度</span><br><span class="line">substr() 截取字符串</span><br><span class="line">ascii() 返回字符的ascii码</span><br><span class="line">sleep(n) 将程序挂起一段时间为n秒</span><br><span class="line">if(expr1,expr2,expr3) 判断语句，如果第一个语句正确就执行第二个语句，如果错误执行第三个语句</span><br></pre></td></tr></table></figure></p>
+<p><strong> 布尔盲注公式 </strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># database()可替换为查询的sql语句</span><br><span class="line">ascii(substr(database(),1,1))=97</span><br></pre></td></tr></table></figure></p>
+<p><strong> 时间盲注公式 </strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># (substr((select database()),1,1))=&apos;a&apos; 可替换为查询的sql语句</span><br><span class="line">and if ((substr((select database()),1,1))=&apos;a&apos;,sleep(5),null)</span><br></pre></td></tr></table></figure></p>
 <h1 id="0x01-Sqli-labs"><a href="#0x01-Sqli-labs" class="headerlink" title="0x01 Sqli-labs"></a>0x01 Sqli-labs</h1><h2 id="Less-8-Blind-Boolian-Single-Quotes-String"><a href="#Less-8-Blind-Boolian-Single-Quotes-String" class="headerlink" title="Less-8 Blind-Boolian-Single Quotes- String"></a>Less-8 Blind-Boolian-Single Quotes- String</h2><p>依据题目信息知道是布尔盲注。<br><strong>判断数据库名长度：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://43.247.91.228:84/Less-8/?id=1&apos; and length(database())=8 --+</span><br></pre></td></tr></table></figure></p>
 <p><strong>利用burp爆库名：</strong><br>1、抓包，利用 substr()  ascii(substr((select database()),1,1))=98 爆数据库名称，根据上面判断出库名长度为8，则第一个payload设置为1-8；第二个payload设置为ascii码的值。<br><img src="https://i.loli.net/2018/12/24/5c20fcbec19e4.png" alt="请求数据包"><br>2、结果：<br><img src="https://i.loli.net/2018/12/24/5c20fcbecbf32.png" alt="攻击结果"></p>
 <p>因此库名为security</p>
