@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="依据《python绝技：运用python成为顶级黑客》，把一些python实现渗透测试的思路练习、记录下来。其中不仅包含书中代码，也包含了自己写的一些，以及结合网上参照的一些。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python绝技">
+<meta property="og:url" content="http://yoursite.com/2019/01/07/python绝技/index.html">
+<meta property="og:site_name" content="Angie&#39;s blog">
+<meta property="og:description" content="依据《python绝技：运用python成为顶级黑客》，把一些python实现渗透测试的思路练习、记录下来。其中不仅包含书中代码，也包含了自己写的一些，以及结合网上参照的一些。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190104134717786.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZ2llX1E=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190107111835694.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190107113008821.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZ2llX1E=,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-01-07T14:31:49.690Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python绝技">
+<meta name="twitter:description" content="依据《python绝技：运用python成为顶级黑客》，把一些python实现渗透测试的思路练习、记录下来。其中不仅包含书中代码，也包含了自己写的一些，以及结合网上参照的一些。">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190104134717786.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZ2llX1E=,size_16,color_FFFFFF,t_70">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/07/python绝技/"/>
+
+
+
+
+
+  <title>python绝技 | Angie's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Angie's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/07/python绝技/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Angie Q">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/portrait.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Angie's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python绝技</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-07T22:29:47+08:00">
+                2019-01-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pythons/" itemprop="url" rel="index">
+                    <span itemprop="name">pythons</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  依据《python绝技：运用python成为顶级黑客》，把一些python实现渗透测试的思路练习、记录下来。其中不仅包含书中代码，也包含了自己写的一些，以及结合网上参照的一些。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="端口扫描器"><a href="#端口扫描器" class="headerlink" title="端口扫描器"></a>端口扫描器</h1><h2 id="多线程端口扫描器"><a href="#多线程端口扫描器" class="headerlink" title="多线程端口扫描器"></a>多线程端口扫描器</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> optparse</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="comment"># 信号量提供锁阻止其他线程进入，保证任何个定时间只有一个线程输出</span></span><br><span class="line">screenLock = threading.Semaphore(value=<span class="number">1</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">connScan</span><span class="params">(tgtHost, tgtPort)</span>:</span></span><br><span class="line">	<span class="string">"""</span></span><br><span class="line"><span class="string">    :param tgtHost:ip</span></span><br><span class="line"><span class="string">    :param tgtPort:端口</span></span><br><span class="line"><span class="string">    :return:端口开放或关闭的信息</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">        connSkt = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">        connSkt.connect((tgtHost, tgtPort))</span><br><span class="line">        <span class="comment"># 获取主机标识，额外验证代码。发送一段字符串等待响应，收集信息。</span></span><br><span class="line">        connSkt.send(<span class="string">'ViolentPython\r\n'</span>)</span><br><span class="line">        results = connSkt.recv(<span class="number">100</span>)</span><br><span class="line">        <span class="comment"># 在打印输出前，抢占一个锁来加锁</span></span><br><span class="line">        screenLock.acquire()</span><br><span class="line">        print(<span class="string">'[+]%d/tcp open'</span> %tgtPort)</span><br><span class="line">        print(<span class="string">'[+]'</span>+str(results))</span><br><span class="line">        connSkt.close()</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">    	screenLock.acquire()</span><br><span class="line">        print(<span class="string">'[-]%d/tcp closed'</span> %tgtPort)</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        screenLock.release()</span><br><span class="line">        connSkt.close()</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">portScan</span><span class="params">(tgtHost, tgtPorts)</span>:</span></span><br><span class="line">	<span class="keyword">try</span>:</span><br><span class="line">		<span class="comment"># 通过gethostbyname()函数将主机名解析为ip地址</span></span><br><span class="line">        tgtIP = socket.gethostbyname(tgtHost)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">    	print(<span class="string">"[-]Cannot resolve '%s': Unkown host"</span> %tgtHost)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">	<span class="keyword">try</span>:</span><br><span class="line">        tgtName = socket.gethostbyaddr(tgtIP)</span><br><span class="line">        print(<span class="string">'\n[+]Scan Result for:'</span> + tgtName[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        print(<span class="string">'\n[+]Scan Results for:'</span> + tgtIP)</span><br><span class="line">    socket.setdefaulttimeout(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> tgtPort <span class="keyword">in</span> tgtPorts:</span><br><span class="line">    	print(<span class="string">'Scanning port'</span> + str(tgtPort))</span><br><span class="line">    	t = threading.Thread(target=connScan, args=(tgtHost,int(tgtPort)))</span><br><span class="line">    	t.start()</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">	<span class="string">"""</span></span><br><span class="line"><span class="string">    调用OptionParse()创建一个选项分析器</span></span><br><span class="line"><span class="string">    然后通过parser.add_option()函数来指定命令选项</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    parser = optparse.OptionParser(<span class="string">'usage %prog -H &lt;target host&gt; -p &lt;target port&gt;'</span>)</span><br><span class="line">    parser.add_option(<span class="string">'-H'</span>,dest=<span class="string">'tgtHost'</span>,type=<span class="string">'string'</span>,help=<span class="string">'specify target host'</span>)</span><br><span class="line">    parser.add_option(<span class="string">'-p'</span>,dest=<span class="string">'tgtPort'</span>,type=<span class="string">'int'</span>,help=<span class="string">'specify target port'</span>)</span><br><span class="line">    (options,args) = parser.parse_args()</span><br><span class="line">    tgtHost = options.tgtHost</span><br><span class="line">    tgtPort = options.tgtPort</span><br><span class="line">    args.append(tgtPort)</span><br><span class="line">    <span class="keyword">if</span>(tgtHost==<span class="keyword">None</span>)|(tgtPort == <span class="keyword">None</span>):</span><br><span class="line">    	print(<span class="string">'[-]You must specify a target host and port[s]!'</span>)</span><br><span class="line">        exit(<span class="number">0</span>)</span><br><span class="line">    portScan(tgtHost,args)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">	main()</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20190104134717786.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZ2llX1E=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="结合Nmap端口扫描器"><a href="#结合Nmap端口扫描器" class="headerlink" title="结合Nmap端口扫描器"></a>结合Nmap端口扫描器</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> optparse</span><br><span class="line"><span class="comment"># 这里安装的包应该是python-nmap而不是nmap</span></span><br><span class="line"><span class="keyword">import</span> nmap</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nmapScan</span><span class="params">(tgtHost, tgtPort)</span>:</span></span><br><span class="line">    nmScan = nmap.PortScanner()</span><br><span class="line">    results = nmScan.scan(tgtHost, tgtPort)</span><br><span class="line">    state = results[<span class="string">'scan'</span>][tgtHost][<span class="string">'tcp'</span>][int(tgtPort)][<span class="string">'state'</span>]</span><br><span class="line">    print(<span class="string">" [*] "</span> + tgtHost + <span class="string">"tcp/"</span> + tgtPort + <span class="string">" "</span> + state)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    parser = optparse.OptionParser(<span class="string">'usage %prog -H &lt;target host&gt; -p &lt;target port&gt;'</span>)</span><br><span class="line">    parser.add_option(<span class="string">'-H'</span>, dest=<span class="string">'tgtHost'</span>, type=<span class="string">'string'</span>, help=<span class="string">'specify target host'</span>)</span><br><span class="line">    parser.add_option(<span class="string">'-p'</span>, dest=<span class="string">'tgtPort'</span>, type=<span class="string">'string'</span>, help=<span class="string">'specify target port'</span>)</span><br><span class="line">    (options, args) = parser.parse_args()</span><br><span class="line">    tgtHost = options.tgtHost</span><br><span class="line">    tgtPort = options.tgtPort</span><br><span class="line">    args.append(tgtPort)</span><br><span class="line">    <span class="keyword">if</span> (tgtHost == <span class="keyword">None</span>)|(tgtPort == <span class="keyword">None</span>):</span><br><span class="line">        print(<span class="string">'[-]You must specify a target host and port[s]!'</span>)</span><br><span class="line">        exit(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">for</span> tgport <span class="keyword">in</span> args:</span><br><span class="line">        nmapScan(tgtHost,tgport)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20190107111835694.png" alt="在这里插入图片描述"></p>
+<h2 id="进阶nmap端口扫描器"><a href="#进阶nmap端口扫描器" class="headerlink" title="进阶nmap端口扫描器"></a>进阶nmap端口扫描器</h2><p>这个是之前实习的时候写的，结合多线程、python-nmap写的端口扫描器。<br>1、可输入单个或多个host，或批量导入；<br>2、可指定端口或使用默认常用端口扫描；<br>3、发送邮件预警。</p>
+<p>缺点：1、效率不够高；2、不是全扫描</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*-coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> nmap</span><br><span class="line"><span class="keyword">import</span> sendemailtool <span class="keyword">as</span> tool</span><br><span class="line"><span class="keyword">from</span> optparse <span class="keyword">import</span> OptionParser</span><br><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">创建类使可以获得线程函数的结果值</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomTask</span><span class="params">(Thread)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, tgthost, tgtport)</span>:</span></span><br><span class="line">        Thread.__init__(self)</span><br><span class="line">        self._result = <span class="keyword">None</span></span><br><span class="line">        self.tgthost = tgthost</span><br><span class="line">        self.tgtport = tgtport</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        result = nmScan(self.tgthost, self.tgtport)</span><br><span class="line">        self._result = result</span><br><span class="line">        <span class="comment"># print(self._result)</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_result</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._result</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">    nmScan使用python-nmap库</span></span><br><span class="line"><span class="string">    python-nmap库依赖于nmap</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nmScan</span><span class="params">(tgthost, tgtport)</span>:</span></span><br><span class="line">    whitelist = []</span><br><span class="line">    result = <span class="string">''</span></span><br><span class="line">    nmscan = nmap.PortScanner()</span><br><span class="line">    tmp = nmscan.scan(tgthost, tgtport, arguments=<span class="string">'-T4 -A -v -Pn '</span>)  <span class="comment"># 禁ping快速扫描</span></span><br><span class="line">    result = result + <span class="string">"&lt;h2&gt;ip地址:%s ...... %s&lt;/h2&gt;&lt;hr&gt;"</span> % (tgthost, tmp[<span class="string">'scan'</span>][tgthost][<span class="string">'status'</span>][<span class="string">'state'</span>])</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        ports = tmp[<span class="string">'scan'</span>][tgthost][<span class="string">'tcp'</span>].keys()</span><br><span class="line">        <span class="keyword">for</span> port <span class="keyword">in</span> ports:</span><br><span class="line">            <span class="keyword">if</span> port <span class="keyword">not</span> <span class="keyword">in</span> whitelist:</span><br><span class="line">                info = <span class="string">'&lt;strong&gt;&lt;font color=red&gt;Alert:非预期端口&lt;/font&gt;&lt;/strong&gt;&amp;nbsp;&amp;nbsp;'</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                info = <span class="string">'&lt;strong&gt;&lt;font color=green&gt;Info:正常开放端口&lt;/font&gt;&lt;/strong&gt;&amp;nbsp;&amp;nbsp;'</span></span><br><span class="line">            portinfo = <span class="string">"%s &lt;strong&gt;port&lt;/strong&gt; : %s &amp;nbsp;&amp;nbsp;&lt;strong&gt;state&lt;/strong&gt; : %s &amp;nbsp;&amp;nbsp;&lt;strong&gt;product&lt;/strong&gt; : %s &lt;br&gt;"</span> % (info, port, tmp[<span class="string">'scan'</span>][tgthost][<span class="string">'tcp'</span>][int(port)][<span class="string">'state'</span>], tmp[<span class="string">'scan'</span>][tgthost][<span class="string">'tcp'</span>][int(port)][<span class="string">'product'</span>])</span><br><span class="line">            result = result + portinfo</span><br><span class="line">    <span class="keyword">except</span> KeyError <span class="keyword">as</span> e:</span><br><span class="line">        <span class="keyword">if</span> whitelist:</span><br><span class="line">             whitestr = <span class="string">','</span>.join(whitelist)</span><br><span class="line">             result = result + <span class="string">"未扫到开放端口！请检查%s端口对应的服务状态"</span> % whitestr</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            result = result + <span class="string">"扫描结果正常，无暴露端口"</span></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    f1 = open(<span class="string">'/home/angie/PycharmProjects/python_work/iplist.txt'</span>, <span class="string">'ab'</span>)</span><br><span class="line">    parser = OptionParser()</span><br><span class="line">    parser.add_option(<span class="string">'-H'</span>, dest=<span class="string">'tgthost'</span>, type=<span class="string">'string'</span>, help=<span class="string">'specify target host'</span>)</span><br><span class="line">    parser.add_option(<span class="string">'-f'</span>, dest=<span class="string">'file'</span>, default=<span class="string">''</span>, help=<span class="string">'host list'</span>, metavar=<span class="string">'LIST'</span>)</span><br><span class="line">    (options, args) = parser.parse_args()</span><br><span class="line">    tgthost = options.tgthost</span><br><span class="line">    tgtports = [<span class="number">20</span>, <span class="number">21</span>, <span class="number">22</span>, <span class="number">23</span>, <span class="number">25</span>, <span class="number">69</span>, <span class="number">80</span>, <span class="number">109</span>, <span class="number">110</span>, <span class="number">139</span>, <span class="number">179</span>, <span class="number">443</span>, <span class="number">445</span>, <span class="number">544</span>, <span class="number">1080</span>, <span class="number">1433</span>, <span class="number">1434</span>, <span class="number">1521</span>, <span class="number">1158</span>, <span class="number">2100</span>,<span class="number">3306</span>, <span class="number">3389</span>, <span class="number">7001</span>, <span class="number">8080</span>, <span class="number">8081</span>, <span class="number">9080</span>, <span class="number">9090</span>]</span><br><span class="line">    <span class="keyword">if</span> options.file == <span class="string">''</span>:</span><br><span class="line">        results = []</span><br><span class="line">        mailcontents = []</span><br><span class="line">        <span class="keyword">for</span> tgtport <span class="keyword">in</span> tgtports:</span><br><span class="line">            ct = CustomTask(str(tgthost), str(tgtport))</span><br><span class="line">            results.append(ct)</span><br><span class="line">            ct.start()</span><br><span class="line">            time.sleep(<span class="number">5</span>)</span><br><span class="line">        <span class="keyword">for</span> ct <span class="keyword">in</span> results:</span><br><span class="line">            ct.join()</span><br><span class="line">            mailcontents.append(ct.get_result())</span><br><span class="line">        tool.sendemail(str(mailcontents))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        results = []</span><br><span class="line">        mailcontents = []</span><br><span class="line">        f = open(options.file, <span class="string">'r'</span>)</span><br><span class="line">        current_host = f.readline().strip()</span><br><span class="line">        <span class="keyword">while</span> (current_host):</span><br><span class="line">            <span class="keyword">for</span> tgtport <span class="keyword">in</span> tgtports:</span><br><span class="line">                ct = CustomTask(str(current_host), str(tgtport))</span><br><span class="line">                results.append(ct)</span><br><span class="line">                ct.start()</span><br><span class="line">                time.sleep(<span class="number">5</span>)</span><br><span class="line">                <span class="comment"># ct.join()</span></span><br><span class="line">            current_host = f.readline().strip()</span><br><span class="line">            <span class="keyword">for</span> ct <span class="keyword">in</span> results:</span><br><span class="line">                ct.join()</span><br><span class="line">                mailcontents.append(ct.get_result())</span><br><span class="line">        f.close()</span><br><span class="line">        tool.sendemail(str(mailcontents))</span><br><span class="line">    f1.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p><strong>sendemaitool :</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*-coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> smtplib</span><br><span class="line"><span class="keyword">from</span> email.header <span class="keyword">import</span> Header</span><br><span class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sendemail</span><span class="params">(content)</span>:</span></span><br><span class="line">    mail_host = <span class="string">'xxx'</span>  <span class="comment"># SMTP服务器</span></span><br><span class="line">    mail_user = <span class="string">'xxx@xxx.com'</span> <span class="comment"># 发件人邮箱</span></span><br><span class="line">    mail_pass = <span class="string">'xxx'</span> <span class="comment"># SMTP授权码</span></span><br><span class="line"></span><br><span class="line">    receiver = <span class="string">'xxx@xxx.com'</span> <span class="comment"># 收件人邮箱</span></span><br><span class="line">    title = <span class="string">'端口扫描报告'</span></span><br><span class="line"></span><br><span class="line">    msg = MIMEText(content, <span class="string">'html'</span>, <span class="string">'utf-8'</span>)</span><br><span class="line">    msg[<span class="string">'From'</span>] = <span class="string">"&#123;&#125;"</span>.format(mail_user)</span><br><span class="line">    msg[<span class="string">'To'</span>] = receiver</span><br><span class="line">    msg[<span class="string">'Subject'</span>] = Header(title, <span class="string">'utf-8'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        smtpObj = smtplib.SMTP_SSL(mail_host, <span class="number">465</span>)</span><br><span class="line">        smtpObj.login(mail_user, mail_pass)</span><br><span class="line">        smtpObj.sendmail(mail_user, receiver, msg.as_string())</span><br><span class="line">        smtpObj.quit()</span><br><span class="line">    <span class="keyword">except</span> smtplib.SMTPException <span class="keyword">as</span> e:</span><br><span class="line">        print(e)</span><br></pre></td></tr></table></figure></p>
+<p>效果：<br><img src="https://img-blog.csdnimg.cn/20190107113008821.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZ2llX1E=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/Gophish部署与测试/" rel="next" title="Gophish钓鱼工具部署与测试">
+                <i class="fa fa-chevron-left"></i> Gophish钓鱼工具部署与测试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/portrait.png"
+                alt="Angie Q" />
+            
+              <p class="site-author-name" itemprop="name">Angie Q</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#端口扫描器"><span class="nav-number">1.</span> <span class="nav-text">端口扫描器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#多线程端口扫描器"><span class="nav-number">1.1.</span> <span class="nav-text">多线程端口扫描器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结合Nmap端口扫描器"><span class="nav-number">1.2.</span> <span class="nav-text">结合Nmap端口扫描器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进阶nmap端口扫描器"><span class="nav-number">1.3.</span> <span class="nav-text">进阶nmap端口扫描器</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Angie Q</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
